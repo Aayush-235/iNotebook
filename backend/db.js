@@ -13,3 +13,22 @@ const connectToMongo = () => {
 };
 
 module.exports = connectToMongo;
+
+
+
+//2nd way
+
+// const mongoose = require('mongoose');
+
+// const mongoURI = "your_mongo_connection_string";
+
+// const connectToMongo = async () => {
+//   try {
+//     await mongoose.connect(mongoURI);
+//     console.log("Connected to MongoDB");
+//   } catch (err) {
+//     console.error("MongoDB connection failed:", err);
+//   }
+// };
+
+// module.exports = connectToMongo;
