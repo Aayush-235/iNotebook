@@ -4,13 +4,14 @@ const User = require("../models/User")
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser')
 
 const JWT_SECRET = "mySuperSecretKey";
 
 // . means = current dir
 // ..means = parent dir (one level up)
 
-
+//ROUTE--1
 //Create a User using : POST "/api/auth/craeteuser"
 
 router.post('/createuser', [
@@ -47,7 +48,7 @@ router.post('/createuser', [
             }
             const authToken = jwt.sign(data, JWT_SECRET)
             // console.log(authToken) to show the jwt_token in console
-            res.json({ authToken })
+            res.json(authToken)
         }
         catch (err) {
             res.status(500).send("Internal Server Error")
@@ -56,6 +57,7 @@ router.post('/createuser', [
 
     })
 
+//ROUTE--2
 //Authentication of a User using : POST "/api/auth/login"
 
 router.post('/login', [
@@ -97,5 +99,28 @@ router.post('/login', [
 
 
     })
+
+
+//ROUTE--3
+//get login_user details using : POST "/api/auth/getuser"
+
+
+router.post('/getuser', fetchuser, async (req, res) => {
+
+    try {
+
+        //const userId = req.user.id --->>> here this is not work because we can add data in the authToken is just simple,not an object. if the data we add in the authToken is object then we can definetly write req.user.id. here req.user is give me _id of mongodb user
+
+        const userId = req.user
+        const user = await User.findById(userId).select("-password")
+        res.send(user)
+
+    } catch (err) {
+        res.status(500).send("Internal Server Error")
+
+    }
+
+
+})
 
 module.exports = router

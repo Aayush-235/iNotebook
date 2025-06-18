@@ -1,11 +1,9 @@
 const express = require("express")
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/fetchallnotes', (req, res) => {
 
-    res.json({
-        name: "Aayush Savaliya",
-    })
+    
 })
 
 module.exports = router
