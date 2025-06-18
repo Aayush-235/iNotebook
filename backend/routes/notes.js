@@ -12,6 +12,8 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
         const notes = await Notes.find({ user: req.user })
         res.json(notes)
     } catch (err) {
+        console.log(err)
+
         res.status(500).send("Internal Server Error")
     }
 
@@ -46,6 +48,8 @@ router.post('/addnotes', fetchuser, [
 
 
         } catch (err) {
+            console.log(err)
+
             res.status(500).send("Internal Server Error")
         }
 
@@ -54,7 +58,7 @@ router.post('/addnotes', fetchuser, [
 
 
 //ROUTE--3
-//Update existing notes using : POST "/api/notes/updatenotes"
+//Update existing notes using : PUT "/api/notes/updatenotes"
 
 router.put('/updatenotes/:id', fetchuser, async (req, res) => {
 
@@ -68,7 +72,7 @@ router.put('/updatenotes/:id', fetchuser, async (req, res) => {
         if (title) { newnotes.title = title }
         if (description) { newnotes.description = description }
         if (tag) { newnotes.tag = tag }
-        
+
         //Find the note to be updated and update it
 
         let note = await Notes.findById(req.params.id)
@@ -91,10 +95,49 @@ router.put('/updatenotes/:id', fetchuser, async (req, res) => {
 
     catch (err) {
         // console.log("at catch block")
+        console.log(err)
+
         res.status(500).send("Internal Server Error")
     }
 
 
 })
+
+
+//ROUTE--4
+//Delete existing notes using : DELETE "/api/notes/deletenotes"
+
+router.delete('/deletenotes/:id', fetchuser, async (req, res) => {
+
+    try {
+        // console.log("at try block")
+        //Find the note to be deleted and delete it
+
+        let note = await Notes.findById(req.params.id)
+        if (!note) {
+            return res.status(404).send("Note not found")
+        }
+        if (note.user.toString() != req.user) {
+            return res.status(401).send("Not authorized")
+
+        }
+
+        // console.log("here")
+
+        note = await Notes.findByIdAndDelete(req.params.id)
+        // note = await Notes.findOneAndDelete({_id : req.params.id})
+        res.json({ "Success": "Note has been deleted" })
+
+
+    }
+
+    catch (err) {
+        console.log(err)
+        res.status(500).send("Internal Server Error")
+    }
+
+
+})
+
 
 module.exports = router
