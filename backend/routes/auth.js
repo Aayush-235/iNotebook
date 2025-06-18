@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
-const JWT_SECRET = "mysecretkey";
+const JWT_SECRET = "mySuperSecretKey";
 
 // . means = current dir
 // ..means = parent dir (one level up)
@@ -31,6 +31,7 @@ router.post('/createuser', [
                 return res.status(400).json({ error: "Email already exists" })
             }
 
+            // password encryption
             const salt = await bcrypt.genSalt(10);
             const setPass = await bcrypt.hash(req.body.password, salt);
 
@@ -40,20 +41,61 @@ router.post('/createuser', [
                 password: setPass
             })
 
+            // generate authToken...
             const data = {
-                user : user.id,
+                user: user.id,
             }
             const authToken = jwt.sign(data, JWT_SECRET)
             // console.log(authToken) to show the jwt_token in console
-            res.json({authToken})
+            res.json({ authToken })
         }
         catch (err) {
-            res.status(500).send("Some error occurred")
+            res.status(500).send("Internal Server Error")
         }
 
 
     })
 
+//Authentication of a User using : POST "/api/auth/login"
 
+router.post('/login', [
+    body('password', 'Password cannot be blank').exists(),
+    body('email', 'Enter a valid email').isEmail()
+],
+    async (req, res) => {
+
+        // IF THERE ARE ERROR => RETURN BAD REQUSET AND THE ERROR ARRAY...
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() })
+        }
+
+        const { email, password } = req.body
+
+        try {
+
+            let user = await User.findOne({ email });
+            if (!user) {
+                return res.status(400).json({ error: "Please try to login with correct credentials" })
+            }
+
+            const passwordCompare = await bcrypt.compare(password, user.password)
+            if (!passwordCompare) {
+                return res.status(400).json({ error: "Please try to login with correct credentials" })
+            }
+
+            const data = {
+                user: user.id,
+            }
+            const authToken = jwt.sign(data, JWT_SECRET)
+            res.json({ authToken })
+
+        } catch (err) {
+            res.status(500).send("Internal Server Error")
+
+        }
+
+
+    })
 
 module.exports = router
