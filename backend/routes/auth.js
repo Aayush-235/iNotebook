@@ -7,33 +7,39 @@ const { body, validationResult } = require('express-validator');
 // ..means = parent dir (one level up)
 
 
-//Create a User using : "/api/auth"
-// does not reqire Auth
-router.post('/', [
+//Create a User using : POST "/api/auth/craeteuser"
+
+router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('password', 'Enter a valid password').isLength({ min: 5 }),
     body('email', 'Enter a valid email').isEmail()
-], (req, res) => {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-        return res.status(400).json({ error: error.array() })
-    }
-    User.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    }).then((user) => {
-        return res.json(user)
-    }).catch((err) => {
-        {
-            console.log(err)
-            res.json({ error: "Please enter a unique value"})
+],
+    async (req, res) => {
+        // IF THERE ARE ERROR => RETURN BAD REQUSET AND THE ERROR ARRAY...
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() })
         }
+        try {
+            let user = await User.findOne({ email: req.body.email })
+
+            if (user) {
+                return res.status(400).json({ error: "Email already exists" })
+            }
+            user = await User.create({
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password
+            })
+
+            res.json(user)
+        }
+        catch (err) {
+            res.status(500).send("Some error occurred")
+        }
+
+
     })
-})
-
-
-
 
 
 
