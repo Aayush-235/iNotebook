@@ -4,7 +4,7 @@ import { useState } from "react";
 const NoteState = (props) => {
     const notesinitial = [
         {
-            "_id": "6852ba2d30ac8ce0afb8d2ed",
+            "_id": "6852ba2d30avvsc8ce0afb8d2ed",
             "user": "68528f1f6e7a8c97d861264b",
             "title": "aayush updated 2",
             "description": "aayush is my name updated 2",
@@ -13,7 +13,7 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
+            "_id": "6852ba2f30ac8ce0afb8d2fgg1",
             "user": "68528f1f6e7a8c97d861264b",
             "title": "aayush",
             "description": "aayush is my name",
@@ -22,76 +22,39 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
-            "_id": "6852ba3230ac8ce0afb8d2f5",
+            "_id": "68d52ba3230ac8ce0afb8d2f5",
             "user": "68528f1f6e7a8c97d861264b",
             "title": "aayush updated",
             "description": "aayush is my name updated",
             "tag": "nirma",
             "date": "2025-06-18T13:08:02.268Z",
             "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
+        },
+        {
+            "_id": "6852ba2d30ac8ce0afb8gd2ed",
+            "user": "68528f1f6e7a8c97d861264b",
+            "title": "aayush updated 2",
+            "description": "aayush is my name updated 2",
+            "tag": "nirma",
+            "date": "2025-06-18T13:07:57.522Z",
+            "__v": 0
+        },
+        {
+            "_id": "6852bad2f30ac8ce0afb8d2f1",
             "user": "68528f1f6e7a8c97d861264b",
             "title": "aayush",
             "description": "aayush is my name",
             "tag": "nirma",
             "date": "2025-06-18T13:07:59.909Z",
             "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
+        },
+        {
+            "_id": "6852ba3230afc8ce0afb8d2f5",
             "user": "68528f1f6e7a8c97d861264b",
-            "title": "aayush",
-            "description": "aayush is my name",
+            "title": "aayush updated",
+            "description": "aayush is my name updated",
             "tag": "nirma",
-            "date": "2025-06-18T13:07:59.909Z",
-            "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
-            "user": "68528f1f6e7a8c97d861264b",
-            "title": "aayush",
-            "description": "aayush is my name",
-            "tag": "nirma",
-            "date": "2025-06-18T13:07:59.909Z",
-            "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
-            "user": "68528f1f6e7a8c97d861264b",
-            "title": "aayush",
-            "description": "aayush is my name",
-            "tag": "nirma",
-            "date": "2025-06-18T13:07:59.909Z",
-            "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
-            "user": "68528f1f6e7a8c97d861264b",
-            "title": "aayush",
-            "description": "aayush is my name",
-            "tag": "nirma",
-            "date": "2025-06-18T13:07:59.909Z",
-            "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
-            "user": "68528f1f6e7a8c97d861264b",
-            "title": "aayush",
-            "description": "aayush is my name",
-            "tag": "nirma",
-            "date": "2025-06-18T13:07:59.909Z",
-            "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
-            "user": "68528f1f6e7a8c97d861264b",
-            "title": "aayush",
-            "description": "aayush is my name",
-            "tag": "nirma",
-            "date": "2025-06-18T13:07:59.909Z",
-            "__v": 0
-        }, {
-            "_id": "6852ba2f30ac8ce0afb8d2f1",
-            "user": "68528f1f6e7a8c97d861264b",
-            "title": "aayush",
-            "description": "aayush is my name",
-            "tag": "nirma",
-            "date": "2025-06-18T13:07:59.909Z",
+            "date": "2025-06-18T13:08:02.268Z",
             "__v": 0
         }
     ]
