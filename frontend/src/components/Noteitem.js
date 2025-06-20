@@ -14,6 +14,7 @@ export default function Noteitem(props) {
                         </div>
                     </div>
                     <p className="card-text mt-2">{note.description}</p>
+                    
                 </div>
             </div>
 
