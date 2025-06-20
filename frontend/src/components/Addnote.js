@@ -34,7 +34,7 @@ export default function Addnote() {
                         <input type="text" className="form-control" id="tag" name="tag" onChange={onChange} />
                     </div>
                     
-                    <button type="submit" className="btn btn-primary my-3" onClick={handleClick}>Submit</button>
+                    <button type="submit" className="btn btn-primary my-3" onClick={handleClick}>Add note</button>
                 </form>
 
 
