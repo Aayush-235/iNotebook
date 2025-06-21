@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import noteContext from '../context/notes/noteContext';
 import Noteitem from './Noteitem';
 import Addnote from './Addnote';
@@ -6,11 +6,14 @@ import Addnote from './Addnote';
 export default function Notes() {
 
     const context = useContext(noteContext);
-    const { notes } = context
+    const { notes, getNote } = context
+    useEffect(() => {
+        getNote()
+    }, [])
 
     return (
         <>
-            <Addnote/>
+            <Addnote />
             <div>
                 <div className="row my-3">
 
