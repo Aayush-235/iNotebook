@@ -53,7 +53,6 @@ export default function Login() {
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="email" value={credential.email}name="email"aria-describedby="emailHelp" onChange={onChange}/>
-                        <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>

@@ -20,16 +20,19 @@ router.post('/createuser', [
     body('email', 'Enter a valid email').isEmail()
 ],
     async (req, res) => {
+          let success=false
         // IF THERE ARE ERROR => RETURN BAD REQUSET AND THE ERROR ARRAY...
         const error = validationResult(req);
         if (!error.isEmpty()) {
-            return res.status(400).json({ error: error.array() })
+            success=true
+            return res.status(400).json({ success, error: error.array() })
         }
         try {
             let user = await User.findOne({ email: req.body.email })
 
             if (user) {
-                return res.status(400).json({ error: "Email already exists" })
+                success=true
+                return res.status(400).json({ success, error: "Email already exists" })
             }
 
             // password encryption
@@ -48,7 +51,8 @@ router.post('/createuser', [
             }
             const authToken = jwt.sign(data, JWT_SECRET)
             // console.log(authToken) to show the jwt_token in console
-            res.json(authToken)
+            success=true
+            res.json({success, authToken})
         }
         catch (err) {
             res.status(500).send("Internal Server Error")
