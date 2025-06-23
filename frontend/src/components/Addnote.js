@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import noteContext from '../context/notes/noteContext';
 
-export default function Addnote() {
+export default function Addnote(props) {
     const context = useContext(noteContext);
     const { addNote } = context
     const [note, setNote] = useState({title : "", description : "", tag: ""})
@@ -10,6 +10,7 @@ export default function Addnote() {
         e.preventDefault()
         addNote(note.title, note.description, note.tag)
         setNote({title : "", description : "", tag: ""})
+        props.showtAlert("Your note is successfully add in MongoDB!!!","success")
     }
     const onChange = (e) => {
         setNote({...note, [e.target.name] : e.target.value})

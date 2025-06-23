@@ -10,7 +10,8 @@ export default function Noteitem(props) {
 
     const deleteNoteidpass = () => {
         // console.log(note._id)
-        deleteNote(note._id)
+        deleteNote(note._id);
+        props.showtAlert("Deleted Successfully!!!","success")
 
     }
     return (<>
