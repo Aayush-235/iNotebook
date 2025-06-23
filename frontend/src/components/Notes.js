@@ -13,7 +13,7 @@ export default function Notes() {
     }, [])
 
     const ref = useRef(null)
-    const refClose= useRef(null)
+    const refClose = useRef(null)
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
 
 
@@ -21,7 +21,7 @@ export default function Notes() {
         ref.current.click()
 
         setNote({
-            id : note._id,
+            id: note._id,
             etitle: note.title,
             edescription: note.description,
             etag: note.tag
@@ -30,8 +30,8 @@ export default function Notes() {
 
 
     const handleClick = (e) => {
-       refClose.current.click()
-       editNote(note.id, note.etitle, note.edescription, note.etag)
+        refClose.current.click()
+        editNote(note.id, note.etitle, note.edescription, note.etag)
         console.log("Updating note", note)
     }
     const onChange = (e) => {
@@ -48,7 +48,7 @@ export default function Notes() {
                 Launch demo modal
             </button>
 
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" >
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -59,35 +59,40 @@ export default function Notes() {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} aria-describedby="emailHelp" onChange={onChange} />
+                                    <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} aria-describedby="emailHelp" onChange={onChange} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} />
+                                    <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} />
+                                    <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} minLength={5} required />
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button  type="button" className="btn btn-primary" onClick={handleClick} >Update Note</button>
+                            <button type="button" className="btn btn-primary" onClick={handleClick} disabled={note.etitle.length < 5 || note.edescription.length < 5 || note.etag.length<5}>Update Note</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <div className="row my-3">
-
+                <div className="container">
                     <h1>Your Notes</h1>
-                    {
-                        notes.map((notes) => {
-                            return <Noteitem key={notes._id} updateNote={upnoteNote} note={notes} />
-                        })
-                    }
+                    {notes.length === 0 && 'No notes to display'}
                 </div>
+
+                <div className="row my-3">
+                    {notes.map((note) => (
+                        note && note._id ? (
+                            <Noteitem key={note._id} updateNote={upnoteNote} note={note} />
+                        ) : null
+                    ))}
+                </div>
+
+
             </div>
         </>
 

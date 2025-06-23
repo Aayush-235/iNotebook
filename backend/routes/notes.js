@@ -44,7 +44,7 @@ router.post('/addnotes', fetchuser, [
                 user: req.user
             })
 
-            res.json({ notes })
+            res.json( notes )
 
 
         } catch (err) {
