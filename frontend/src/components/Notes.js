@@ -1,4 +1,4 @@
-import React, { useState,useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import noteContext from '../context/notes/noteContext';
 import Noteitem from './Noteitem';
 import Addnote from './Addnote';
@@ -6,31 +6,36 @@ import Addnote from './Addnote';
 export default function Notes() {
 
     const context = useContext(noteContext);
-    const { notes, getNote } = context
+    const { notes, getNote, editNote } = context
     useEffect(() => {
         getNote()
         // eslint-disable-next-line
     }, [])
 
+    const ref = useRef(null)
+    const refClose= useRef(null)
+    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
+
+
     const upnoteNote = (note) => {
         ref.current.click()
 
         setNote({
-            etitle : note.title,
-            edescription : note.description,
-            etag : note.tag
+            id : note._id,
+            etitle: note.title,
+            edescription: note.description,
+            etag: note.tag
         })
     }
 
-    const ref = useRef(null)
-        const [note, setNote] = useState({etitle : "", edescription : "", etag: ""})
 
     const handleClick = (e) => {
-        e.preventDefault()
+       refClose.current.click()
+       editNote(note.id, note.etitle, note.edescription, note.etag)
         console.log("Updating note", note)
     }
     const onChange = (e) => {
-        setNote({...note, [e.target.name] : e.target.value})
+        setNote({ ...note, [e.target.name]: e.target.value })
     }
 
 
@@ -58,7 +63,7 @@ export default function Notes() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription }onChange={onChange} />
+                                    <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">Tag</label>
@@ -67,8 +72,8 @@ export default function Notes() {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
+                            <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button  type="button" className="btn btn-primary" onClick={handleClick} >Update Note</button>
                         </div>
                     </div>
                 </div>

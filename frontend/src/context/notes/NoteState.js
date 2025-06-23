@@ -60,6 +60,10 @@ const NoteState = (props) => {
                 body: JSON.stringify({ title, description, tag }),
             }
         );
+        const json = response.json()
+        console.log(json)
+
+
         console.log("Adding a new note");
         const note = {
             _id: "6852ba32sfvfd30afc8ce0afb8d2f5",
@@ -97,7 +101,7 @@ const NoteState = (props) => {
         const json = await response.json();
         console.log(json)
 
-        
+
         console.log("Deleting the note with id : " + _id);
         const newNotes = notes.filter((note) => {
             return note._id !== _id;
@@ -127,17 +131,29 @@ const NoteState = (props) => {
                 body: JSON.stringify({ title, description, tag }),
             }
         );
-        const json = response.json();
+        const json = await response.json();
+        console.log(json)
+
+        let newNotes = JSON.parse(JSON.stringify(notes))
+        // Create a deep copy of the notes array to avoid mutating the original state directly.
+        // React does not detect changes if we directly modify the state, which may cause UI bugs.
 
         //Logic for edit in local client
-        for (let index = 0; index < notes.length; index++) {
-            const element = notes[index];
-            if (element._id === id) {
-                element.title = title;
-                element.description = description;
-                element.tag = tag;
+        for (let index = 0; index < newNotes.length; index++) {
+            if (newNotes[index]._id === id) {
+                newNotes[index].title = title;
+                newNotes[index].description = description;
+                newNotes[index].tag = tag;
+                break;
             }
+
+
         }
+        // Set the updated notes array in state to trigger UI re-render
+
+        setnotes(newNotes)
+
+
     };
 
 
