@@ -24,8 +24,7 @@ const NoteState = (props) => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token":
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjg1MjhmMWY2ZTdhOGM5N2Q4NjEyNjRiIiwiaWF0IjoxNzUwMjQxMTU0fQ.WIHRl1rDdr9HBwQJK-QOpVIQUdmhTlJu_UwyDdokBVI",
+                    "auth-token": localStorage.getItem('token'),
                 }
             }
         );
@@ -55,8 +54,7 @@ const NoteState = (props) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token":
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjg1MjhmMWY2ZTdhOGM5N2Q4NjEyNjRiIiwiaWF0IjoxNzUwMjQxMTU0fQ.WIHRl1rDdr9HBwQJK-QOpVIQUdmhTlJu_UwyDdokBVI",
+                    "auth-token":localStorage.getItem('token'),
                 },
                 body: JSON.stringify({ title, description, tag }),
             }
@@ -82,8 +80,7 @@ const NoteState = (props) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token":
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjg1MjhmMWY2ZTdhOGM5N2Q4NjEyNjRiIiwiaWF0IjoxNzUwMjQxMTU0fQ.WIHRl1rDdr9HBwQJK-QOpVIQUdmhTlJu_UwyDdokBVI",
+                    "auth-token":localStorage.getItem('token'),
                 },
             }
         );
@@ -111,8 +108,7 @@ const NoteState = (props) => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token":
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjg1MjhmMWY2ZTdhOGM5N2Q4NjEyNjRiIiwiaWF0IjoxNzUwMjQxMTU0fQ.WIHRl1rDdr9HBwQJK-QOpVIQUdmhTlJu_UwyDdokBVI",
+                    "auth-token":localStorage.getItem('token'),
                 },
                 body: JSON.stringify({ title, description, tag }),
             }

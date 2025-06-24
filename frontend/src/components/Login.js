@@ -1,15 +1,18 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+
+
 
 export default function Login(props) {
 
     const [credential, setCredential] = useState({
-        email : "",
-        password : ""
+        email: "",
+        password: ""
     })
 
     let navigate = useNavigate()
-    const handleSubmit =async(e)=>{
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch(
             "http://localhost:5000/api/auth/login",
@@ -18,10 +21,10 @@ export default function Login(props) {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                 body: JSON.stringify(
+                body: JSON.stringify(
                     {
-                        email : credential.email,
-                        password : credential.password
+                        email: credential.email,
+                        password: credential.password
                     }
                 ),
             }
@@ -29,16 +32,16 @@ export default function Login(props) {
         const json = await response.json()
         console.log(json)
 
-        if(json.success){
+        if (json.success) {
             // console.log("Login Success")
             // console.log(json.authToken)
             // Save the authToken and rediract it
             localStorage.setItem('token', json.authToken)
-            navigate('/')
             props.showtAlert("Successfully Login", "success")
+            navigate('/')
         }
-        else{
-           props.showtAlert("Invalid Cradentials", "danger")
+        else {
+            props.showtAlert("Invalid Cradentials", "danger")
         }
 
     }
@@ -49,21 +52,21 @@ export default function Login(props) {
 
     return (
         <>
+            <div className="mt-2">
+                <h2 className='my-2'>Login to continue iNotebook</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email address</label>
+                        <input type="email" className="form-control" id="email" value={credential.email} name="email" aria-describedby="emailHelp" onChange={onChange} />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input type="password" className="form-control" id="password" value={credential.password} name="password" onChange={onChange} />
+                    </div>
 
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" id="email" value={credential.email}name="email"aria-describedby="emailHelp" onChange={onChange}/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" value={credential.password} name="password" onChange={onChange}/>
-                </div>
-                
-                <button type="submit" className="btn btn-primary" >Submit</button>
-
-
-            </form >
+                    <button type="submit" className="btn btn-primary" >Submit</button>
+                </form >
+            </div>
         </>
     )
 }
